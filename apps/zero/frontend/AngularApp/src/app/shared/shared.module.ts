@@ -28,6 +28,7 @@ import { CustomLabelComponent } from './components/custom-label/custom-label.com
 import { ScrollBottomPaginationDirective } from './directives/scroll-bottom-pagination-directive/scroll-bottom-pagination.directive';
 
 import { StepperComponent } from './components/stepper/stepper.component';
+import { NavZeroComponent } from './components/nav-zero/nav-zero.component';
 
 
 
@@ -36,6 +37,7 @@ let components = [
   CustomLabelComponent,
   OverlayLoadingComponent,
   StepperComponent,
+  NavZeroComponent
 
   // ScrollBottomPaginationDirective,
 

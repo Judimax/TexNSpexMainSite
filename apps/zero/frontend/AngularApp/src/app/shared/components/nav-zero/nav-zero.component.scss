@@ -1,0 +1,58 @@
+
+@import "src/assets/styles/global.scss";
+@import "src/assets/styles/_fonts.scss";
+@import "src/assets/styles/_spacing.scss";
+@import "src/assets/styles/media-queries.scss";
+@import "src/assets/styles/_color_pallete.scss";
+@import "src/assets/styles/_common.scss";
+@import "src/assets/styles/_layouts.scss";
+
+
+:host {
+
+
+  &.NavZeroView{
+    display: block;
+    .NavZero{
+      &Main{
+        &Pod{
+          // @include MainPodCssRule0;
+          display: flex;
+        }
+
+        &Img {
+          &0 {
+            width: calc(100/16 * 1rem);
+            height: auto;
+            position: relative;
+          }
+        }
+        &Btn {
+          &0 {
+            background-color: var(--wml-primary);
+            padding:$spacing3;
+            border-radius: $wml-border-radius1;
+          }
+        }
+        &Item {
+
+          &0 {
+            flex:1  0 50%;
+          }
+          &1 {
+            flex:0  1 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: calc(600/16 * 1rem);
+          }
+        }
+      }
+      &Pod{
+
+        &0{}
+      }
+    }
+  }
+
+}

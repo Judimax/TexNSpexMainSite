@@ -1,3 +1,9 @@
 <div [class]="classPrefix('MainPod')">
+  <section [class]="classPrefix('Pod0')">
 
+    <nav-zero [params]="mainNav"></nav-zero>
+  </section>
+  <section [class]="classPrefix('Pod1')">
+    <router-outlet></router-outlet>
+  </section>
 </div>

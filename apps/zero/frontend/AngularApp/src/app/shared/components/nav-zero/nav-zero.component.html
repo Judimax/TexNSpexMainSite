@@ -1,0 +1,16 @@
+<div [class]="classPrefix('MainPod')">
+  <div [class]="classPrefix('MainItem0')">
+    <img
+      [class]="classPrefix('MainImg0')"
+      [src]="logoImg.src"
+      [alt]="logoImg.alt | translate"
+    />
+  </div>
+  <ul [class]="classPrefix('MainItem1')">
+    <li *ngFor="let item of menuItems">
+      <button [class]="classPrefix('MainBtn0')">
+        <a>{{ item.button.text | translate }}</a>
+      </button>
+    </li>
+  </ul>
+</div>

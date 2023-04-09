@@ -36,6 +36,12 @@
 
   "DefaultLayout":{
     "footer":" FindMyRole,LLC"
+  },
+  "NavZero":{
+    "logoImgAlt":"Tex N Spex's Logo",
+    "menuItems":[
+      "Home","Subjects \\ Courses","Tutor Profiles","How it works","Contact Us"
+    ]
   }
 
 

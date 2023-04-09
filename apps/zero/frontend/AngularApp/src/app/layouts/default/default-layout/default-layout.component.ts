@@ -16,6 +16,7 @@ import { takeUntil,tap } from 'rxjs/operators';
 // misc
 
 import { ENV } from '@env/environment';
+import { NavZeroParams } from '@shared/components/nav-zero/nav-zero.component';
 
 
 
@@ -44,6 +45,8 @@ export class DefaultLayoutComponent  {
   @HostBinding('class') myClass: string = this.classPrefix(`View`);
   ngUnsub= new Subject<void>()
   fullYear =  new Date().getFullYear();
+
+  mainNav = new NavZeroParams()
   ngOnInit(): void {
   }
 

@@ -1,10 +1,8 @@
 
 $wml-white: #ffffff;
 $wml-black: #000000;
-$wml-primary: #0C8CE9;
-$wml-primary-filter: invert(34%) sepia(48%) saturate(2430%) hue-rotate(184deg) brightness(107%) contrast(91%);
-// $wml-primary: maroon;
-// $wml-primary-filter:invert(9%) sepia(73%) saturate(4921%) hue-rotate(359deg) brightness(93%) contrast(114%);
+$wml-primary: #FF5733;
+$wml-primary-filter: invert(68%) sepia(94%) saturate(5319%) hue-rotate(340deg) brightness(102%) contrast(101%);
 $wml-secondary:#E0F36B;
 $wml-secondary-filter:invert(85%) sepia(91%) saturate(310%) hue-rotate(9deg) brightness(98%) contrast(95%);
 $wml-tertiary: #2B2E30;
@@ -12,8 +10,8 @@ $wml-grey: lighten(rgb(31, 25, 25), 40);
 $wml-star-selected:#FFD700;
 $wml-dark-grey: #777e90;
 $wml-light-grey:#C4C4C4;
-$wml-default-layout-background:#F8F8FF;
-$wml-dark-default-layout-background:#070707;
+$wml-default-layout-background:$wml-dark-grey;
+$wml-dark-default-layout-background:$wml-light-grey;
 $wml-alert:red;
 
 :root {
