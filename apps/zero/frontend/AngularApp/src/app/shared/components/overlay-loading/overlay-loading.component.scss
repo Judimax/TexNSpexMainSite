@@ -1,0 +1,37 @@
+@import "src/assets/styles/global.scss";
+@import "src/assets/styles/_color_pallete.scss";
+@import "src/assets/styles/_fonts.scss";
+@import "src/assets/styles/_spacing.scss";
+
+
+:host {
+
+
+  &.OverlayLoadingView{
+    .OverlayLoading{
+      &Main{
+        &Pod{
+          background-color: rgba(31, 25, 25,.7);
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          inset:0;
+          width: 100vw;
+          height: 100vh;
+          justify-content: center;
+          align-items: center;
+        }
+        &Text {
+          &0 {
+            font-size: $display-small;
+            text-align: center;
+          }
+        }
+      }
+      &Pod{
+        &0{}
+      }
+    }
+  }
+
+}

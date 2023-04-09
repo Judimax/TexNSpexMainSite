@@ -1,0 +1,131 @@
+version: 2.1
+# orbs:
+#   browser-tools: circleci/browser-tools@1.4.0
+jobs:
+  fullstack-prod:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+      REACT_APP_REACT_ENVIRONMENT: "prod"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+      - restore_cache:
+          keys:
+            - cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          npm install -s --force;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npm install -s;
+
+      - save_cache:
+          key: frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/ReactApp/node_modules
+      - save_cache:
+          key: cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/project/apps/zero/cloud/firebase/node_modules
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          # npm run test;
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          export REACT_APP_REACT_ENVIRONMENT=prod;
+          export CI=false;
+          export REACT_APP_DEV_POV_PINATA_API_KEY=$REACT_APP_DEV_POV_PINATA_API_KEY;
+          export REACT_APP_DEV_POV_PINATA_API_SECRET_KEY=$REACT_APP_DEV_POV_PINATA_API_SECRET_KEY;
+          export REACT_APP_DEV_EVENTBRITE_APIKEY=$REACT_APP_DEV_EVENTBRITE_APIKEY;
+          export REACT_APP_DEV_EVENTBRITE_ORGID=$REACT_APP_DEV_EVENTBRITE_ORGID;
+          export REACT_APP_PROD_EVENTBRITE_APIKEY=$REACT_APP_PROD_EVENTBRITE_APIKEY;
+          export REACT_APP_PROD_EVENTBRITE_ORGID=$REACT_APP_PROD_EVENTBRITE_ORGID;
+          export REACT_APP_PROD_POV_PINATA_API_KEY=$REACT_APP_PROD_POV_PINATA_API_KEY;
+          export REACT_APP_PROD_POV_PINATA_API_SECRET_KEY=$REACT_APP_PROD_POV_PINATA_API_SECRET_KEY;
+          npm run build:prod;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npx firebase deploy  --project proof-of-vibes --config "../../frontend/ReactApp/firebase.json"  --token $FIREBASE_TOKEN;
+
+  fullstack-dev:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+      REACT_APP_REACT_ENVIRONMENT: "prod"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+      - restore_cache:
+          keys:
+            - cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          npm install -s --force;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npm install -s;
+
+      - save_cache:
+          key: frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/ReactApp/node_modules
+      - save_cache:
+          key: cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/project/apps/zero/cloud/firebase/node_modules
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          # npm run test;
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          export REACT_APP_REACT_ENVIRONMENT=preview;
+          export CI=false;
+          export REACT_APP_DEV_POV_PINATA_API_KEY=$REACT_APP_DEV_POV_PINATA_API_KEY;
+          export REACT_APP_DEV_POV_PINATA_API_SECRET_KEY=$REACT_APP_DEV_POV_PINATA_API_SECRET_KEY;
+          export REACT_APP_DEV_EVENTBRITE_APIKEY=$REACT_APP_DEV_EVENTBRITE_APIKEY;
+          export REACT_APP_DEV_EVENTBRITE_ORGID=$REACT_APP_DEV_EVENTBRITE_ORGID;
+          export REACT_APP_PROD_EVENTBRITE_APIKEY=$REACT_APP_PROD_EVENTBRITE_APIKEY;
+          export REACT_APP_PROD_EVENTBRITE_ORGID=$REACT_APP_PROD_EVENTBRITE_ORGID;
+          export REACT_APP_PROD_POV_PINATA_API_KEY=$REACT_APP_PROD_POV_PINATA_API_KEY;
+          export REACT_APP_PROD_POV_PINATA_API_SECRET_KEY=$REACT_APP_PROD_POV_PINATA_API_SECRET_KEY;
+          npm run build:preview;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npx firebase deploy  --project proof-of-vibes-preview --config "../../frontend/ReactApp/firebase.json"  --token $FIREBASE_TOKEN;
+
+
+
+workflows:
+  e2e:
+    jobs:
+      - fullstack-dev:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # on\ly branches matching the below regex filters will run
+                - dev
+      - fullstack-prod:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - main

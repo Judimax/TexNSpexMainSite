@@ -1,0 +1,10 @@
+<router-outlet *ngIf="!utilService.isIframe"></router-outlet>
+<wml-notify [class]="classPrefix('MainNotify0')"></wml-notify>
+<div
+*ngIf="baseService.toggleOverlayLoadingSubj$ | async"
+ [class]="classPrefix('Pod1')">
+  <overlay-loading [class]="classPrefix('MainLoading0')" ></overlay-loading>
+</div>
+<div *ngIf="baseService.togglePopupSubj | async" [class]="classPrefix('Pod0')">
+  <wml-popup [params]="baseService.popupParams"></wml-popup>
+</div>

@@ -1,0 +1,30 @@
+
+@import "src/assets/styles/global.scss";
+@import "src/assets/styles/_fonts.scss";
+@import "src/assets/styles/_spacing.scss";
+@import "src/assets/styles/media-queries.scss";
+@import "src/assets/styles/_color_pallete.scss";
+@import "src/assets/styles/_common.scss";
+@import "src/assets/styles/_layouts.scss";
+
+
+:host {
+
+
+  &.ScratchpadView{
+    display: block;
+    .Scratchpad{
+      &Main{
+        &Pod{
+          @include MainPodCssRule0;
+          background-color: var(--wml-primary);
+        }
+      }
+      &Pod{
+
+        &0{}
+      }
+    }
+  }
+
+}

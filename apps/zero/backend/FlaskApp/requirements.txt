@@ -1,0 +1,27 @@
+﻿requests
+flask
+pyngrok
+gunicorn
+gevent
+newsapi-python
+pyngrok
+flask-ngrok
+werkzeug
+sendgrid
+faker
+pytz
+sqlalchemy
+pyodbc
+
+translatepy
+pytest
+coverage
+requests-mock
+pytest-watch
+pytest-mock
+<<<<<<< HEAD
+psycopg2
+=======
+psycopg2-binary
+
+>>>>>>> dev

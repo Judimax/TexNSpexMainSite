@@ -1,0 +1,29 @@
+<header class="primary-header-container mat-elevation-z8" [ngClass]="{'scrolled' : is_page_scrolled}">
+    <div class="primary-header row justify-content-center">
+        <div class="col-12 col-sm-10 d-flex justify-content-between align-items-center">
+            <span class="brand-name">
+                modhyobitto
+            </span>
+            <img class="brand-logo"
+                src="assets/images/logo-nav@2x.png"
+                alt="Modhyobitto Logo">
+        </div>
+    </div>
+    <div class="primary-navigation row justify-content-center">
+        <nav mat-tab-nav-bar role="tablist" class="col-12 col-sm-10" aria-labelledby="primary-navigation">
+            <a  mat-tab-link role="tab"
+                routerLink="dashboard"
+                routerLinkActive #rla_dashboard="routerLinkActive"
+                [active]="rla_dashboard.isActive">Dashboard</a>
+            <a  mat-tab-link role="tab"
+                routerLink="module-a"
+                routerLinkActive #rla_module_a="routerLinkActive"
+                [active]="rla_module_a.isActive">Module A</a>
+            <a  mat-tab-link role="tab"
+                routerLink="module-b"
+                routerLinkActive #rla_module_b="routerLinkActive"
+                [active]="rla_module_b.isActive">Module B</a>               
+        </nav>
+    </div>
+</header>
+<app-banner [is_page_scrolled]="is_page_scrolled"></app-banner>

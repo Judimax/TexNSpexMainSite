@@ -1,0 +1,31 @@
+
+@import "src/assets/styles/global.scss";
+@import "src/assets/styles/layouts.scss";
+@import "src/assets/styles/spacing.scss";
+@import "src/assets/styles/_color_pallete.scss";
+
+
+:host {
+
+
+  &.NotFoundView{
+    *{
+      color:var(--wml-black);
+    }
+    .NotFound{
+      &Main{
+        &Pod{
+          @include MainPodCssRule1;
+
+
+        }
+      }
+      &Pod{
+
+        &0{}
+        &1{}
+      }
+    }
+  }
+
+}

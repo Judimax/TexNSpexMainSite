@@ -1,0 +1,50 @@
+@import "./color_pallete";
+@import "./fonts";
+@import "./spacing";
+@import "./layouts";
+
+$wml-border-radius0:calc(8/16 * 1rem);
+$wml-border-radius1:calc(20/16 * 1rem);
+$wml-app-transition-time0:1s;
+:root{
+  --wml-border-radius0:#{$wml-border-radius0};
+  --wml-border-radius1:#{$wml-border-radius1};
+  --wml-app-transition-time0:#{$wml-app-transition-time0};
+}
+
+@mixin outline1 {
+  border: calc(1/16 * 1rem)solid red;
+}
+
+@mixin outline2 {
+  border: calc(1/16 * 1rem)solid blue;
+}
+
+@mixin outline3 {
+  border: calc(1/16 * 1rem)solid green;
+}
+
+@mixin outline4 {
+  border: calc(1/16 * 1rem)dotted white;
+}
+
+
+@mixin borderRadius0{
+  border-radius: calc(8/16 * 1rem);
+}
+
+@mixin borderRadius1{
+  border-radius: calc(20/16 * 1rem);
+}
+
+@mixin appOutline0{
+  border: calc(1/16 * 1rem) solid $dark-grey;
+}
+
+@mixin wmlHighlightedTitle0{
+  padding:$spacing5;
+  border-radius: $wml-border-radius0;
+}
+
+
+

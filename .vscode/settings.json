@@ -1,0 +1,36 @@
+{
+  "files.exclude": {
+    "amplify/.config": true,
+    "amplify/**/*-parameters.json": true,
+    "amplify/**/amplify.state": true,
+    "amplify/**/transform.conf.json": true,
+    "amplify/#current-cloud-backend": true,
+    "amplify/backend/amplify-meta.json": true,
+    "amplify/backend/awscloudformation": true,
+    "apps/zero/frontend/AngularAppOld":true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "examples/**":true,
+    "docs/**":true
+  },
+  "workbench.colorTheme": "Base16 Dark Ashes",
+  "task.allowAutomaticTasks": "on",
+  "python.formatting.provider": "black",
+  "python.analysis.extraPaths": [
+    "./apps/zero/backend/FlaskApp/site-packages/windows",
+    "./apps/zero/backend/FlaskApp/site-packages/linux",
+    "./apps/zero/backend/FlaskApp/site-packages/darwin"
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.test.config": {
+    "name":"myTestConfiguration",
+    "testKind": "testng",
+    "preLaunchTask": "testng e2e: setup vscode java testing extension",
+    "vmArgs": ["-DparamBrowser=FIREFOXHEADLESS","-DparamEnv=DEV"]
+  }
+
+}

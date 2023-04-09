@@ -1,0 +1,5 @@
+Flask
+werkzeug
+flask-session
+git+https://github.com/azure-samples/ms-identity-python-utilities
+pyopenssl

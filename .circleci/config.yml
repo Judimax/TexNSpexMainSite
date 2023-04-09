@@ -1,0 +1,68 @@
+version: 2.1
+# orbs:
+#   browser-tools: circleci/browser-tools@1.4.0
+jobs:
+  fullstack:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+      REACT_APP_REACT_ENVIRONMENT: "prod"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - frontend-npm-deps-v1-{{ checksum "/root/project/apps/zero/frontend/AngularApp/package.json" }}
+      - restore_cache:
+          keys:
+            - cloud-npm-deps-v1-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - backend-pip-deps-v1-{{ checksum "/root/project/apps/zero/backend/flask/dev/requirements.txt" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+
+          cd ~/project/apps/zero/frontend/AngularApp/;
+          npm install -s ;
+
+
+      - save_cache:
+          key: frontend-npm-deps-v1-{{ checksum "/root/project/apps/zero/frontend/AngularApp/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/AngularApp/node_modules
+      - save_cache:
+          key: cloud-npm-deps-v1-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/project/apps/zero/cloud/firebase/node_modules
+      - save_cache:
+          key: backend-pip-deps-v1-{{ checksum "/root/project/apps/zero/backend/flask/dev/requirements.txt" }}
+          paths:
+            - /root/project/apps/zero/backend/flask/dev/site-packages/linux
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/AngularApp/;
+          npm run test;
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/AngularApp/;
+          export ADDTL_ENV_VAR=prod;
+          export CI=false;
+          npm run build:preview;
+          # additional deploy steps
+
+
+
+workflows:
+  e2e:
+    jobs:
+      - fullstack:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - prod

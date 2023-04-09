@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+
+<suite name="All Tests">
+
+
+  <test name="e2e package">
+    <packages>
+        <package name="e2e.*"/>
+    </packages>
+
+
+  </test>
+
+  <test name="e2e classes">
+
+    <classes>
+      <class name="e2e.VibesMapTest" />
+    </classes>
+
+
+  </test>
+
+  <test name="e2e methods">
+
+    <classes>
+      <class name="e2e.VibesMapTest">
+        <methods>
+
+           <!-- <include name="selectRandomTribes" /> -->
+          <include name="toggleToViewMapOnly" />
+          <include name="toggleToViewEventListOnly" />
+        </methods>
+      </class>
+    </classes>
+
+  </test>
+
+</suite>

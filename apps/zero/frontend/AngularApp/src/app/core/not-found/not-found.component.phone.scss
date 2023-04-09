@@ -1,0 +1,13 @@
+#root not-found{
+  @media #{$mobile}{
+    .NotFoundMainPod{
+      flex-direction: column;
+      padding:$spacing7;
+      align-items: center;
+    }
+    .NotFoundPod1Img0{
+      width: 50%;
+      height: auto;
+    }
+  }
+}

@@ -1,0 +1,243 @@
+version: 2.1
+
+orbs:
+  browser-tools: circleci/browser-tools@1.4.1
+jobs:
+  fullstack-prod:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+      REACT_APP_REACT_ENVIRONMENT: "prod"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+      - restore_cache:
+          keys:
+            - cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          npm install -s --force;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npm install -s;
+
+      - save_cache:
+          key: frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/ReactApp/node_modules
+      - save_cache:
+          key: cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/project/apps/zero/cloud/firebase/node_modules
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          # npm run test;
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          export REACT_APP_REACT_ENVIRONMENT=prod;
+          export CI=false;
+          export REACT_APP_SITE_UNAVAILABLE=false;
+          export REACT_APP_DEV_POV_PINATA_API_KEY=$REACT_APP_DEV_POV_PINATA_API_KEY;
+          export REACT_APP_DEV_POV_PINATA_API_SECRET_KEY=$REACT_APP_DEV_POV_PINATA_API_SECRET_KEY;
+          export REACT_APP_DEV_POV_PINATA_API_JWT=$REACT_APP_DEV_POV_PINATA_API_JWT
+
+          export REACT_APP_PREVIEW_POV_PINATA_API_KEY=$REACT_APP_PREVIEW_POV_PINATA_API_KEY;
+          export REACT_APP_PREVIEW_POV_PINATA_API_SECRET_KEY=$REACT_APP_PREVIEW_POV_PINATA_API_SECRET_KEY;
+          export REACT_APP_PREVIEW_POV_PINATA_API_JWT=$REACT_APP_PREVIEW_POV_PINATA_API_JWT;
+
+          export REACT_APP_PROD_POV_PINATA_API_KEY=$REACT_APP_PROD_POV_PINATA_API_KEY;
+          export REACT_APP_PROD_POV_PINATA_API_SECRET_KEY=$REACT_APP_PROD_POV_PINATA_API_SECRET_KEY;
+          export REACT_APP_PROD_POV_PINATA_API_JWT=$REACT_APP_PROD_POV_PINATA_API_JWT;
+          npm run build:prod;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npx firebase deploy --only hosting  --project proof-of-vibes --config "../../frontend/ReactApp/firebase.json"  --token $FIREBASE_TOKEN;
+
+
+  fullstack-dev:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+      REACT_APP_REACT_ENVIRONMENT: "preview"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+      - restore_cache:
+          keys:
+            - cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+      - restore_cache:
+          keys:
+            - e2e-mvn-deps-v2-{{ checksum "/root/project/apps/zero/testing/testng/pom.xml" }}
+      - restore_cache:
+          keys:
+            - cloud-emulators-deps-v3-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          npm install -s --force;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npm install -s;
+          cd ~/project/apps/zero/testing/testng;
+          curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | JABBA_COMMAND="install openjdk@1.17.0" bash;
+          export JAVA_HOME=/root/.jabba/jdk/openjdk@1.17.0;
+          export PATH=$JAVA_HOME/bin:$PATH;
+          mvn install -DskipTests;
+
+      - save_cache:
+          key: frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/ReactApp/node_modules
+      - save_cache:
+          key: cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/project/apps/zero/cloud/firebase/node_modules
+      - save_cache:
+          key: e2e-mvn-deps-v2-{{ checksum "/root/project/apps/zero/testing/testng/pom.xml" }}
+          paths:
+            - /root/.m2/repository
+      - save_cache:
+          key: cloud-emulators-deps-v3-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/.cache/firebase
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh ;
+          . ~/project/ignore/CircleCI/set_frontend_react_env.sh;
+          cd ~/project/apps/zero/cloud/firebase;
+          npx firebase emulators:start --import='devData' &
+          export JAVA_HOME=/root/.jabba/jdk/openjdk@1.17.0 ;
+          export PATH=$JAVA_HOME/bin:$PATH ;
+          . ~/project/ignore/CircleCI/setup_circleci_env_testng.sh;
+          sleep 60s ;
+          mvn test -DsuiteFile="src/test/resources/ci-tests.xml" -DparamBrowser=CHROMEHEADLESS -DparamEnv=DEVLOCAL ;
+      - store_test_results:
+          path: apps/zero/testing/testng/target/surefire-reports
+      - store_artifacts:
+          path: apps/zero/testing/testng/target/surefire-reports
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          export REACT_APP_REACT_ENVIRONMENT=preview;
+          export CI=false;
+          export REACT_APP_SITE_UNAVAILABLE=false;
+          export REACT_APP_DEV_POV_PINATA_API_KEY=$REACT_APP_DEV_POV_PINATA_API_KEY;
+          export REACT_APP_DEV_POV_PINATA_API_SECRET_KEY=$REACT_APP_DEV_POV_PINATA_API_SECRET_KEY;
+          export REACT_APP_DEV_POV_PINATA_API_JWT=$REACT_APP_DEV_POV_PINATA_API_JWT
+
+          export REACT_APP_PREVIEW_POV_PINATA_API_KEY=$REACT_APP_PREVIEW_POV_PINATA_API_KEY;
+          export REACT_APP_PREVIEW_POV_PINATA_API_SECRET_KEY=$REACT_APP_PREVIEW_POV_PINATA_API_SECRET_KEY;
+          export REACT_APP_PREVIEW_POV_PINATA_API_JWT=$REACT_APP_PREVIEW_POV_PINATA_API_JWT;
+
+          export REACT_APP_PROD_POV_PINATA_API_KEY=$REACT_APP_PROD_POV_PINATA_API_KEY;
+          export REACT_APP_PROD_POV_PINATA_API_SECRET_KEY=$REACT_APP_PROD_POV_PINATA_API_SECRET_KEY;
+          export REACT_APP_PROD_POV_PINATA_API_JWT=$REACT_APP_PROD_POV_PINATA_API_JWT;
+          npm run build:preview;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npx firebase deploy --only hosting  --project proof-of-vibes-preview --config "../../frontend/ReactApp/firebase.json"  --token $FIREBASE_TOKEN;
+
+  fullstack-without-deploy:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+      REACT_APP_REACT_ENVIRONMENT: "preview"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+      - restore_cache:
+          keys:
+            - cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+      - restore_cache:
+          keys:
+            - e2e-mvn-deps-v2-{{ checksum "/root/project/apps/zero/testing/testng/pom.xml" }}
+      - restore_cache:
+          keys:
+            - cloud-emulators-deps-v3-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          npm install -s --force;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npm install -s;
+          cd ~/project/apps/zero/testing/testng;
+          curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | JABBA_COMMAND="install openjdk@1.17.0" bash;
+          export JAVA_HOME=/root/.jabba/jdk/openjdk@1.17.0;
+          export PATH=$JAVA_HOME/bin:$PATH;
+          mvn install -DskipTests;
+
+      - save_cache:
+          key: frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/ReactApp/node_modules
+      - save_cache:
+          key: cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/project/apps/zero/cloud/firebase/node_modules
+      - save_cache:
+          key: e2e-mvn-deps-v2-{{ checksum "/root/project/apps/zero/testing/testng/pom.xml" }}
+          paths:
+            - /root/.m2/repository
+      - save_cache:
+          key: cloud-emulators-deps-v3-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/.cache/firebase
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh ;
+          . ~/project/ignore/CircleCI/set_frontend_react_env.sh;
+          cd ~/project/apps/zero/cloud/firebase;
+          npx firebase emulators:start --import='devData' &
+          export JAVA_HOME=/root/.jabba/jdk/openjdk@1.17.0 ;
+          export PATH=$JAVA_HOME/bin:$PATH ;
+          . ~/project/ignore/CircleCI/setup_circleci_env_testng.sh;
+          sleep 60s ;
+          mvn test -DsuiteFile="src/test/resources/ci-tests.xml"  -DparamEnv=DEVLOCAL ;
+      - store_test_results:
+          path: apps/zero/testing/testng/target/surefire-reports
+      - store_artifacts:
+          path: apps/zero/testing/testng/target/surefire-reports
+
+
+
+workflows:
+  e2e:
+    jobs:
+      - fullstack-dev:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - dev
+      - fullstack-prod:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - main
+      - fullstack-without-deploy:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - windmillcode-fantastic

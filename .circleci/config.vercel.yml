@@ -1,0 +1,58 @@
+version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.2.2
+jobs:
+  frontend:
+    docker:
+      - image: windmillcode/angular-tornado-capybara-log4j2:0.0.7
+    parallelism: 1
+    environment:
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching:
+      - checkout
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - npm-frontend-deps-v1-{{ checksum "/root/project/apps/zero/frontend/AngularAppCurrent/package.json" }}
+      - restore_cache:
+          keys:
+            - npm-backend-deps-v1-{{ checksum "/root/project/apps/zero/backend/flask/package.json" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          echo $PATH;
+          cd apps/zero/frontend/AngularAppCurrent ;
+          npm install -s;
+          cd ../../backend/flask;
+          npm install -s;
+      - save_cache:
+          key: npm-frontend-deps-v1-{{ checksum "/root/project/apps/zero/frontend/AngularAppCurrent/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/AngularAppCurrent/node_modules
+      - save_cache:
+          key: npm-backend-deps-v1-{{ checksum "/root/project/apps/zero/backend/flask/package.json" }}
+          paths:
+            - /root/project/apps/zero/backend/flask/node_modules
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd apps/zero/frontend/AngularAppCurrent;
+          npm run build;
+          npx firebase deploy --project auxillary-305605 --token $FIREBASE_TOKEN;
+          cd ../../backend/flask;
+          npx vercel ./dev --prod   --token=$VERCEL_TOKEN
+
+
+
+
+workflows:
+  version: 2.1
+  e2e:
+    jobs:
+      - frontend:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - master
+      

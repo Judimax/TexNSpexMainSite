@@ -1,0 +1,89 @@
+@font-face {
+  font-family: 'cadillacSans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/CadSansMedium.ttf');
+}
+
+@font-face {
+  font-family: '888';
+  src: url('../fonts/888-medium-webfont.woff2')
+  url('../fonts/888-CondensedMedium.otf') format('otf'),
+
+}
+
+
+@font-face {
+  font-family: 'neon-club-music';
+  src: url('../fonts/neon-club-music/NEON CLUB MUSIC.otf')
+
+}
+
+
+
+
+$display-xx-large:calc(72/16 * 1rem);
+$display-x-large:calc(64/16 * 1rem);
+$display-large:calc(56/16 * 1rem);
+$display:calc(40/16 * 1rem);
+$display-small:calc(32/16 * 1rem);
+$display-x-small:calc(28/16 * 1rem);
+$display-x-small-light:calc(28/16 * 1rem);
+
+
+$body:calc(20/16 * 1rem);
+$body-bold:calc(20/16 * 1rem);
+$body-small:calc(16/16 * 1rem);
+$body-small-bold:calc(16/16 * 1rem);
+
+$button:calc(16/16 * 1rem);
+$text:calc(16/16 * 1rem);
+
+$overline:calc(18/16 * 1rem);
+$overline-bold:calc(18/16 * 1rem);
+$overline-small:calc(18/16 * 1rem);
+
+$caption:calc(14/16 * 1rem);
+$legal:calc(14/16 * 1rem);
+
+$wml-h1:calc(40/16 * 1rem);
+$wml-h2:calc(36/16 * 1rem);
+$wml-h3:calc(32/16 * 1rem);
+$wml-h4:calc(28/16 * 1rem);
+$wml-h5:calc(24/16 * 1rem);
+$wml-h6:calc(22/16 * 1rem);
+$wml-p: calc(20/16 * 1rem);
+
+
+:root {
+  --display-xx-large: #{$display-xx-large};
+  --display-x-large: #{$display-x-large};
+  --display-large: #{$display-large};
+  --display: #{$display};
+  --display-small: #{$display-small};
+  --display-x-small: #{$display-x-small};
+  --display-x-small-light: #{$display-x-small-light};
+
+  --body: #{$body};
+  --body-bold: #{$body-bold};
+  --body-small: #{$body-small};
+  --body-small-bold: #{$body-small-bold};
+
+  --button: #{$button};
+  --text: #{$text};
+  --overline: #{$overline};
+  --overline-bold: #{$overline-bold};
+  --overline-small: #{$overline-small};
+  --caption: #{$caption};
+  --legal: #{$legal};
+}
+
+
+@mixin fontFamily0{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+}
+
+
+

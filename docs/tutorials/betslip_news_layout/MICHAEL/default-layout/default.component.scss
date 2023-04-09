@@ -1,0 +1,111 @@
+
+@import "src/assets/styles/global.scss";
+
+
+:host {
+
+
+  &.DefaultLayoutView{
+    display: block;
+    height: 100%;
+    .DefaultLayout{
+      &Main{
+        &Pod{
+          @include pageLayout1;
+          height: 100%;
+          width: 100vw;
+        }
+      }
+      &Pod{
+
+
+        &0 {
+          display: flex;
+          flex:0 0 100%;
+          width: 100%;
+          max-width: 100vw;
+          justify-content: center;
+          &Item {
+            @for $i from 0 through 1 {
+              &#{$i} {
+                width: 100%;
+                max-width: $pageMaxWidth;
+              }
+            }
+
+            &0{
+              background-color: $bs-tertiary;
+              flex:0 0 15%;
+
+            }
+            &1{
+              background-color: $bs-quaternary;
+              flex:1 0 80%;
+              display: flex;
+              flex-direction: column;
+              overflow: auto;
+            }
+            &2{
+              background-color: $bs-primary;
+              flex: 0 0 $spacing8;
+              position: sticky;
+              top:0;
+              z-index: 1;
+              width: 100%;
+            }
+            &3{
+              display: flex;
+              flex: 1 0 auto;
+              flex-direction: column;
+            }
+            &4{
+              flex:0 0 70%;
+              height: 150%;
+              padding: $spacing2;
+            }
+            &5{
+              flex:0 0 30%;
+              height: 100%;
+              position: sticky;
+              top:0;
+              overflow: hidden;
+              padding: $spacing2 $spacing5;
+            }
+            &6{
+              background-color: yellow;
+              width: 100%;
+              height: 100%;
+              position: relative;
+            }
+            &7{
+              background-color: $bs-primary;
+              width: 100%;
+              height: 100%;
+            }
+            &8{
+              display: flex;
+              flex:0 0 100%;
+              overflow: auto;
+            }
+            &9{
+              background-color: $bs-secondary;
+              width: 100%;
+              flex:0 0 100%;
+            }
+            &10{
+              bottom:0;
+              position: absolute;
+              background-color: $bs-primary;
+              width: 50%;
+              height: 50%;
+            }
+
+          }
+        }
+
+
+      }
+    }
+  }
+
+}

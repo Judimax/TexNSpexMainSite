@@ -1,0 +1,171 @@
+version: 2.1
+# orbs:
+#   browser-tools: circleci/browser-tools@1.4.0
+jobs:
+  fullstack-prod:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+      REACT_APP_REACT_ENVIRONMENT: "prod"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+      - restore_cache:
+          keys:
+            - cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          npm install -s;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npm install -s;
+
+      - save_cache:
+          key: frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/ReactApp/node_modules
+      - save_cache:
+          key: cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/project/apps/zero/cloud/firebase/node_modules
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          # npm run test;
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          export REACT_APP_REACT_ENVIRONMENT=prod;
+          export CI=false;
+          npm run build:prod;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npx firebase deploy  --project proof-of-vibes --config "../../frontend/ReactApp/firebase.json"  --token $FIREBASE_TOKEN;
+
+  fullstack-dev:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+      REACT_APP_REACT_ENVIRONMENT: "prod"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+      - restore_cache:
+          keys:
+            - cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          npm install -s;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npm install -s;
+
+      - save_cache:
+          key: frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/ReactApp/node_modules
+      - save_cache:
+          key: cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/project/apps/zero/cloud/firebase/node_modules
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          # npm run test;
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          export REACT_APP_REACT_ENVIRONMENT=preview;
+          export CI=false;
+          npm run build:preview;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npx firebase deploy  --project proof-of-vibes-preview --config "../../frontend/ReactApp/firebase.json"  --token $FIREBASE_TOKEN;
+
+  fullstack-old-dev:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+      REACT_APP_REACT_ENVIRONMENT: "preview"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+      - restore_cache:
+          keys:
+            - cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          npm install -s;
+          cd ~/project/apps/zero/cloud/firebase/;
+          npm install -s;
+
+      - save_cache:
+          key: frontend-npm-deps-v2-{{ checksum "/root/project/apps/zero/frontend/ReactApp/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/ReactApp/node_modules
+      - save_cache:
+          key: cloud-npm-deps-v2-{{ checksum "/root/project/apps/zero/cloud/firebase/package.json" }}
+          paths:
+            - /root/project/apps/zero/cloud/firebase/node_modules
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          # npm run test;
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/cloud/firebase/;
+          git config --global user.email "dev@proofofvibes.xyz";
+          git config --global user.name "proof-of-vibes-dev";
+          git clone --depth=1 git@github.com:proofofvibes/firebase-database-preview.git;
+          mv firebase-database-preview/.git ./;
+          rm -rf firebase-database-preview/;
+          git add .;git commit -m"[CI/CD] ci/cd completed";git push origin main;
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/ReactApp/;
+          export REACT_APP_REACT_ENVIRONMENT=preview;
+          export CI=false;
+          npm run build:preview;
+          npx vercel ./build --prod  --token=$VERCEL_TOKEN
+
+
+
+workflows:
+  e2e:
+    jobs:
+      - fullstack-dev:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - michael-fantastic
+      - fullstack-prod:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - michael-fantastic

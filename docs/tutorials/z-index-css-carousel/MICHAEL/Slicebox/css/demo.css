@@ -1,0 +1,10 @@
+.container{
+	width: 50vw;
+	margin: auto;
+}
+
+body{
+	display: flex;
+	justify-content: center;
+
+}

@@ -1,0 +1,35 @@
+//importing variables
+@import 'styles/variables';
+
+//importing font-faces
+@import 'styles/font_families';
+
+//importing the good parts from Bootstrap
+//Dependencies
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+//Grid
+@import "~bootstrap/scss/vendor/rfs";
+@import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/grid";
+//Reboot
+@import '~bootstrap/scss/reboot';
+//Utilities
+@import '~bootstrap/scss/utilities';
+@import '~bootstrap/scss/utilities/api';
+
+//importing Angular Material theme
+@import 'styles/material_theme';
+
+//importing icons
+@import 'styles/modhyobitto_icons';
+
+//importing base element styles
+@import 'styles/base_elements';
+
+//importing module specific styles
+@import 'styles/module_importer';
+
+//importing common utility styles
+@import 'styles/global_styles';

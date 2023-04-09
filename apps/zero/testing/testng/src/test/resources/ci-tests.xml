@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+
+<suite name="MultipleBrowsers CI">
+
+  <test name="ChromeBrowser">
+    <parameter name="paramBrowser" value="CHROMEHEADLESS"></parameter>
+    <packages>
+      <package name="e2e.*" />
+    </packages>
+  </test>
+
+  <test name="FirefoxBrowser">
+    <parameter name="paramBrowser" value="FIREFOXHEADLESS"></parameter>
+    <packages>
+      <package name="e2e.*" />
+    </packages>
+  </test>
+
+  <!-- <test name="OperaBrowser">
+    <parameter name="paramBrowser" value="OPERAHEADLESS"></parameter>
+    <packages>
+      <package name="e2e.*" />
+    </packages>
+  </test>
+
+  <test name="EdgeBrowser">
+    <parameter name="paramBrowser" value="EDGEHEADLESS"></parameter>
+    <packages>
+      <package name="e2e.*" />
+    </packages>
+  </test> -->
+
+</suite>

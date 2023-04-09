@@ -1,0 +1,18 @@
+@import "src/assets/styles/global.scss";
+
+
+:host {
+
+
+  &.NotifyBannerView{
+    .NotifyBanner{
+      &Main{
+        &Pod{}
+      }
+      &Pod{
+        &0{}
+      }
+    }
+  }
+
+}

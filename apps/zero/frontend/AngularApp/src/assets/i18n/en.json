@@ -1,0 +1,33 @@
+{
+  "global":{
+    "website":"WindMillCode",
+    "logoImgAlt":"WindMillCode",
+    "errorRequired":"This field is required",
+    "errrorMin0":"At least one value must be provided",
+    "avatarImgAlt":"Avatar Img",
+    "wmlChipsplaceholder":"Type your value then press enter to see it appear",
+    "wmlChipsuserInputsAriaLabel" :"User Inputs",
+    "wmlChipsremoveChipAriaLabel" : "remove",
+    "fillOutForm":"Please fill out all required fields",
+    "loginAgain":"Please login again to continue using your account",
+    "logoutError":"There was an issue while trying to log you out of your account please try again or contact support if the issue persists",
+    "overlayLoading":"Loading ...",
+    "siteUnderConstruction":"Site Under Construction",
+    "formSubmitSuccess":"Form Submitted Sucessfully",
+    "systemError":"An error has occured please try again later or contact support if the issue persists",
+    "submiBtn":"Submit"
+  },
+  "app":{
+    "startBackend":"You may need to start the backend task"
+  },
+  "notFound":{
+    "lines":[
+      "404",
+      "Whoops! This is not what you were looking for",
+      "But you just found the ball we'd lost, thanks. Try your luck by going back to the home page."
+    ],
+    "someImgAlt":"Tech Ball"
+  }
+
+
+}

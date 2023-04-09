@@ -1,0 +1,61 @@
+// misleading refer to common-utils#toggleDarkMode
+$wml-white: #ffffff;
+$wml-black: #000000;
+// $wml-primary: #0C8CE9;
+// $wml-primary-filter: invert(34%) sepia(48%) saturate(2430%) hue-rotate(184deg) brightness(107%) contrast(91%);
+$wml-primary: maroon;
+$wml-primary-filter:invert(9%) sepia(73%) saturate(4921%) hue-rotate(359deg) brightness(93%) contrast(114%);
+$wml-secondary:#E0F36B;
+$wml-secondary-filter:invert(85%) sepia(91%) saturate(310%) hue-rotate(9deg) brightness(98%) contrast(95%);
+$wml-tertiary: #2B2E30;
+$wml-grey: lighten(rgb(31, 25, 25), 40);
+$wml-star-selected:#FFD700;
+$wml-dark-grey: #777e90;
+$wml-alert:red;
+
+:root {
+    --wml-white:#{$wml-white};
+    --wml-black:#{$wml-black};
+    --wml-primary:#{$wml-primary};
+    --wml-secondary:#{$wml-secondary};
+    --wml-tertiary:#{$wml-tertiary};
+    --wml-star-selected:#{$wml-star-selected};
+    --wml-grey:#{$wml-grey};
+    --wml-alert:#{$wml-alert};
+    --wml-dark-grey:#{$wml-dark-grey};
+    --wml-original-white:#{$wml-white};
+    --wml-original-black:#{$wml-black};
+    --wml-original-primary:#{$wml-primary};
+    --wml-original-secondary:#{$wml-secondary};
+    --wml-original-tertiary:#{$wml-tertiary};
+    --wml-original-star-selected:#{$wml-star-selected};
+    --wml-original-grey:#{$wml-grey};
+    --wml-original-dark-grey:#{$wml-dark-grey};
+    --wml-original-alert:#{$wml-alert};
+    --wml-primary-filter:#{$wml-primary-filter};
+    --wml-secondary-filter:#{$wml-secondary-filter};
+    --wml-original-primary-filter:#{$wml-primary-filter};
+    --wml-original-secondary-filter:#{$wml-secondary-filter};
+}
+
+
+
+// :root {
+//   --wml-white: #000000;
+//   --wml-black: #ffffff;
+//   --wml-primary: #E0F36B;
+//   --wml-secondary: #0C8CE9;
+//   --wml-tertiary: #2B2E30;
+//   --wml-star-selected: #FFD700;
+//   --wml-grey: lighten(grey, 40);
+//   --wml-dark-grey: #777e90;
+// }
+
+// $wml-white: var(--wml-white);
+// $wml-black: var(--wml-black);
+// $wml-primary: var(--wml-primary);
+// $wml-secondary: var(--wml-secondary);
+// $wml-tertiary: var(--wml-tertiary);
+// $wml-star-selected: var(--wml-star-selected);
+// $wml-grey: var(--wml-grey);
+// $wml-dark-grey: var(--wml-dark-grey);

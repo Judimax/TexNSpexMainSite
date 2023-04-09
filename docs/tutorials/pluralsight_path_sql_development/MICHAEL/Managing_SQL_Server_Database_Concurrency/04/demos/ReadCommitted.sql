@@ -1,0 +1,12 @@
+USE TimShoes;
+GO
+
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+BEGIN TRAN;
+
+    SELECT * FROM Orders.Orders;
+
+    SELECT * FROM Orders.Orders;
+
+COMMIT;

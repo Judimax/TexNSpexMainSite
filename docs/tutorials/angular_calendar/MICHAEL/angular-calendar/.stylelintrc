@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier"
+  ],
+  "rules": {
+    "no-descending-specificity": null,
+    "at-rule-no-unknown": null,
+    "annotation-no-unknown": [
+      true,
+      {
+        "ignoreAnnotations": "default"
+      }
+    ]
+  }
+}

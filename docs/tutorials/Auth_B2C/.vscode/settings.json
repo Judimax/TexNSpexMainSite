@@ -1,0 +1,5 @@
+{
+  "python.analysis.extraPaths": [
+    "./MICHAEL/ms-identity-b2c-python-flask-webapp-authentication/site-packages/windows"
+  ]
+}

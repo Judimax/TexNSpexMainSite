@@ -1,0 +1,42 @@
+$wmlPageMaxWidth0:calc(2400/16 * 1rem);
+$wmlPageMaxWidth1:calc(1000/16 * 1rem);
+@mixin pageLayout0{
+  flex: 0 0 90%;
+  max-width: $wmlPageMaxWidth0;
+}
+
+@mixin pageLayout1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin WMLFlexColumnCenter{
+  @include pageLayout1()
+}
+
+@mixin WMLFlexRowCenter{
+  display:flex;
+  align-items: center;
+}
+
+@mixin MainPodCssRule0 {
+  @include pageLayout0;
+  padding:1.5rem;
+   & > *{
+    width: 100%;
+    max-width: $wmlPageMaxWidth0;
+  }
+}
+@mixin MainPodCssRule1 {
+  display: flex;
+  max-width: $wmlPageMaxWidth0;
+  margin: auto;
+  justify-content: space-evenly;
+  padding: $spacing10 0 0 0;
+}
+
+@mixin MainPodCssRule2 {
+  @include MainPodCssRule0 ;
+  padding:0;
+}

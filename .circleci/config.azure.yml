@@ -1,0 +1,66 @@
+version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.4.0
+jobs:
+  fullstack:
+    docker:
+      - image: windmillcode/angular-flask-capybara-log4j2:0.0.8
+    parallelism: 1
+    environment:
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching:
+      # - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - npm-deps-v1-{{ checksum "/root/project/apps/zero/frontend/proofofvibes/package.json" }}
+
+
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - site-packages-deps-v2-{{ checksum "/root/project/apps/zero/backend/flask/dev/requirements.txt" }}
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+
+          cd ~/project/apps/zero/frontend/AngularAppCurrent/;
+          npm install -s;
+
+          cd ~/project/apps/zero/backend/flask/dev;
+          pip install -r requirements.txt --upgrade --target ./site-packages/linux;
+      - save_cache:
+          key: npm-deps-v1-{{ checksum "/root/project/apps/zero/frontend/AngularAppCurrent/package.json" }}
+          paths:
+            - /root/project/apps/zero/frontend/AngularAppCurrent/node_modules
+      - save_cache:
+          key: site-packages-deps-v2-{{ checksum "/root/project/apps/zero/backend/flask/dev/requirements.txt" }}
+          paths:
+            - /root/project/apps/zero/backend/flask/dev/site-packages/linux
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/AngularAppCurrent/;
+          npx ng test --karma-config=karma.conf.circle-ci.js --watch=false;
+          cd ~/project/apps/zero/backend/flask/dev/unit_tests;
+          python run_tests.py
+
+      - run:
+          . /etc/profile.d/01-custom-docker-setup.sh;
+          cd ~/project/apps/zero/frontend/AngularAppCurrent/;
+          npm run build;
+          npx swa deploy ./dist/azureSWA  --env production  --app-name windmillcode-angular-frontend-0;
+          az login --service-principal --username $AZ_SP_APPID --password $AZ_SP_PASSWORD --tenant $AZ_SP_TENANT_ID;
+          az webapp restart --name windmillcode-flask-backend-0 --resource-group  windmillcode-application-0
+
+
+workflows:
+  version: 2.1
+  e2e:
+    jobs:
+      - fullstack:
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - master

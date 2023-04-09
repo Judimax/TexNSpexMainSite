@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+
+<suite name="MultipleBrowsers">
+
+  <!-- <test name="ChromeBrowser">
+    <parameter name="paramBrowser" value="CHROME"></parameter>
+    <classes>
+      <class name="e2e.VibesMapTest">
+        <methods>
+
+          <include name="toggleToViewMapOnly" />
+          <include name="toggleToViewEventListOnly" />
+        </methods>
+      </class>
+    </classes>
+  </test> -->
+
+  <test name="FirefoxBrowser">
+    <parameter name="paramBrowser" value="FIREFOX"></parameter>
+    <classes>
+      <class name="e2e.RegisterTest">
+        <methods>
+
+          <include name="navToLogin" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <!-- <test name="OperaBrowser">
+    <parameter name="paramBrowser" value="OPERA"></parameter>
+    <classes>
+      <class name="e2e.VibesMapTest">
+        <methods>
+
+          <include name="toggleToViewMapOnly" />
+          <include name="toggleToViewEventListOnly" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="EdgeBrowser">
+    <parameter name="paramBrowser" value="EDGE"></parameter>
+    <classes>
+      <class name="e2e.VibesMapTest">
+        <methods>
+
+          <include name="toggleToViewMapOnly" />
+          <include name="toggleToViewEventListOnly" />
+        </methods>
+      </class>
+    </classes>
+  </test> -->
+
+</suite>

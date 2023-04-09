@@ -1,0 +1,446 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "git: Git management",
+      "type": "shell",
+      "command": "git status",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+
+    },
+    {
+      "label": "git: pushing work to git remote",
+      "type": "shell",
+      "command": "git add .;git commit -m'[${input:pushing_work_to_git_remote0}] ${input:pushing_work_to_git_remote1}';git branch --unset-upstream;git push origin HEAD",
+      "group": "none",
+      "linux": {
+        "command": "git add .;git commit -m\"[${input:pushing_work_to_git_remote0}] ${input:pushing_work_to_git_remote1}\";git branch --unset-upstream;git push origin HEAD"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        // "close": true
+      }
+    },
+    {
+      "label": "git: Create branch after merged changes",
+      "type": "shell",
+      "command": " git checkout ${input:create_branch_after_merged_changes0};git pull origin ${input:create_branch_after_merged_changes0};git branch --delete ${input:create_branch_after_merged_changes1};git checkout -b ${input:create_branch_after_merged_changes2}",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "close": true
+      }
+    },
+    {
+      "label": "git: Removing a file from being tracked by git",
+      "type": "shell",
+      "command": "git rm --cached  --sparse ${input:Removing_a_file_from_being_tracked_by_git0}",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "close": true
+      }
+    },
+    {
+      "label": "git: merge changes from current dev branch",
+      "type": "shell",
+      "command": " git checkout ${input:merge_changes_from_current_dev_branch0};git pull origin ${input:merge_changes_from_current_dev_branch0};git checkout -;git merge ${input:merge_changes_from_current_dev_branch0}",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        // "close": true
+      }
+    },
+    {
+      "label": "git: Merge Changes From Master",
+      "type": "shell",
+      "command": " git checkout master;git pull origin master;git branch --delete michael-fantastic;git checkout -b michael-fantastic",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+    },
+    {
+      "label": "angular frontend: run",
+      "type": "shell",
+      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; npx ng serve --ssl=true --ssl-key=$env:WML_CERT_KEY0 --ssl-cert=$env:WML_CERT0",
+      "windows": {
+        "command": "cd .\\apps\\zero\\frontend\\AngularApp\\;Remove-Item -Path '.\\.angular' -Recurse -Force; npx ng serve --ssl=true --ssl-key=$env:WML_CERT_KEY0 --ssl-cert=$env:WML_CERT0"
+      },
+      "osx":{
+        "command": "cd ignore/${input:current_user_0}; ./run-frontend-dev.sh"
+      },
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "angular frontend: Generate_Angular_Component",
+      "type": "shell",
+      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\;npx ng g @windmillcode/angular-templates:component --name ${input:Generate_Angular_Component0}  --standalone ${input:Generate_Angular_Component1}  --cpnt-type ${input:Generate_Angular_Component2} --style-type ${input:Generate_Angular_Component3};",
+
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "angular frontend: test",
+      "type": "shell",
+      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; npx ng test --watch --code-coverage",
+      "windows": {
+        "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; npx ng test --watch --code-coverage"
+      },
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+
+    },
+    {
+      "label": "angular frontend: install app deps",
+      "type": "shell",
+      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; yarn install",
+
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "promptOnClose": false
+    },
+    {
+      "label": "angular frontend: Check for angular updates",
+      "type": "shell",
+      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; npx ng update",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "promptOnClose": false,
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "angular frontend: update angular",
+      "type": "shell",
+      "command": " .\\ignore\\${input:current_user_0}\\update_angular.ps1 ",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "close": true
+      },
+      "promptOnClose": false,
+
+    },
+    {
+      "label": "angular frontend: install external angular project",
+      "type": "shell",
+      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; yarn remove ${input:external_angular_project0};yarn link ${input:external_angular_project0}",
+
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+      },
+      "promptOnClose": false,
+    },
+    {
+      "label": "angular frontend: uninstall external angular project",
+      "type": "shell",
+      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; yarn unlink ${input:external_angular_project0}; yarn add ${input:update_a_npm_package1} ${input:external_angular_project0}",
+
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "promptOnClose": false,
+    },
+    {
+      "label": "npm: reinstall npm package",
+      "type": "shell",
+      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; yarn remove ${input:update_a_npm_package0};yarn add ${input:update_a_npm_package1} ${input:update_a_npm_package0};",
+
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "database-postgres: run via docker",
+      "type": "shell",
+      "command": "docker start windmillcode-postgres-local-0",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "close": true
+      },
+    },
+    {
+      "label": "database-postgres: init postgressql container",
+      "type": "shell",
+      "command": "docker run --name windmillcode-postgres-local-0 -e POSTGRES_PASSWORD=mysecretpassword -p ${input:pgDatabaseport}:5432  -d postgres ",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+      },
+
+    },
+    {
+      "label": "database-postgres: ssh into docker postgres SQL container",
+      "type": "shell",
+      "command": "docker exec -it windmillcode-postgres-local-0 /bin/bash",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "close": true
+      },
+
+    },
+    {
+      "label": "flask backend: run",
+      "type": "shell",
+      "command": ".\\ignore\\${input:current_user_0}\\run_backend_dev.ps1 ${input:current_user_0}",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\run_backend_dev.ps1 ${input:current_user_0}"
+      },
+      "osx":{
+        "command": "./ignore/${input:current_user_0}/run-backend-dev.sh ${input:current_user_0}"
+      },
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "flask backend: test",
+      "type": "shell",
+      "command": ".\\ignore\\${input:current_user_0}\\run_backend_test.ps1 ${input:current_user_0}",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\run_backend_test.ps1 ${input:current_user_0}"
+      },
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "flask backend: install app deps",
+      "type": "shell",
+    "command": " cd apps\\zero\\backend\\FlaskApp; pip install -r ${input:backend_flask_install_app_deps_0}-requirements.txt --upgrade --target .\\site-packages\\${input:backend_flask_install_app_deps_0}",
+      "osx":{
+        "command": "./ignore/${input:current_user_0}/install-backend-flask.sh ${input:backend_flask_install_app_deps_0}"
+      },
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "testng e2e: run",
+      "type": "shell",
+      "command": ".\\ignore\\${input:current_user_0}\\run_e2e_test.ps1",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        // "close": true
+      },
+    },
+    {
+      "label": "testng e2e: setup vscode java testing extension",
+      "type": "shell",
+      "command": ".\\ignore\\${input:current_user_0}\\setup_vscode_extension_testng.ps1",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        // "close": true
+      },
+    },
+    {
+      "label": "e2e-testng: Create_TestNG_Page",
+      "type": "shell",
+      "command": ".\\ignore\\${input:current_user_0}\\testng_create_page.ps1 ${input:Create_TestNG_Page0};",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        // "close": true
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "current_user_0",
+      "description": "the user to run their env scripts",
+      "default": "Windmillcode",
+      "type": "pickString",
+      "options": [
+        "Windmillcode",
+      ]
+    },
+    {
+      "id": "create_branch_after_merged_changes0",
+      "description": "the branch to pull from",
+      "default": "dev",
+      "type": "promptString"
+    },
+    {
+      "id": "create_branch_after_merged_changes1",
+      "description": "the local branch to delete",
+      "default": "michael-fantastic",
+      "type": "promptString"
+    },
+    {
+      "id": "create_branch_after_merged_changes2",
+      "description": "the local branch to make",
+      "default": "michael-fantastic",
+      "type": "promptString"
+    },
+    {
+      "id": "merge_changes_from_current_dev_branch0",
+      "description": "the branch to pull from",
+      "default": "dev",
+      "type": "promptString"
+    },
+    {
+      "id": "Removing_a_file_from_being_tracked_by_git0",
+      "description": "",
+      "type": "promptString"
+    },
+    {
+      "id": "pushing_work_to_git_remote0",
+      "description": "pushing_work_to_git_remote",
+      "default": "UPDATE",
+      "type": "pickString",
+      "options": ["UPDATE", "FIX", "PATCH", "BUG", "MERGE", "COMPLEX MERGE"]
+    },
+    {
+      "id": "pushing_work_to_git_remote1",
+      "description": "git commit desc",
+      "default": "additional work",
+      "type": "promptString"
+    },
+    {
+      "id": "backend_flask_install_app_deps_0",
+      "description": "whether to install on windows mac os or linux (choose linux for macos)",
+      "default": "Windmillcode",
+      "type": "pickString",
+      "options": [
+        "windows",
+        "linux",
+        "darwin"
+      ]
+    },
+    {
+      "id": "external_angular_project0",
+      "description": "provide the package name",
+      "default": "wml-slicebox",
+      "options": [
+        "@windmillcode/penrose",
+        "@windmillcode/wml-input",
+        "@windmillcode/wml-field",
+        "@windmillcode/wml-form",
+        "@windmillcode/wml-slicebox",
+        "@windmillcode/angular-templates",
+        "@windmillcode/wml-components-base",
+        "@windmillcode/wml-notify",
+        "@windmillcode/wml-chips",
+        "@windmillcode/wml-file-manager",
+        "@windmillcode/wml-notify",
+        "@windmillcode/wml-options",
+        "@windmillcode/wml-popup",
+        "@windmillcode/wml-slicebox",
+        "@windmillcode/wml-tabs"
+      ],
+      "type": "pickString"
+    },
+    {
+      "id": "Generate_Angular_Component0",
+      "description": "the name of the component",
+      "type": "promptString",
+    },
+    {
+      "id": "Generate_Angular_Component1",
+      "description": "component is standalone?",
+      "default": "false",
+      "type": "pickString",
+      "options": ["true", "false"]
+    },
+    {
+      "id": "Generate_Angular_Component2",
+      "description": "type of component",
+      "default": "default",
+      "type": "pickString",
+      "options": ["default", "library"]
+    },
+    {
+      "id": "Generate_Angular_Component3",
+      "description": "preset scss to choose from.",
+      "default": "type0",
+      "type": "pickString",
+      "options": ["type0","type1", "none"]
+    },
+    {
+      "id": "update_a_npm_package0",
+      "description": "provide an npm package to reninstall",
+      "default": "@windmillcode/angular-templates",
+      "type": "promptString"
+    },
+    {
+      "id": "update_a_npm_package1",
+      "description": "dev install or dev dependency install",
+      "default": "-D",
+      "type": "pickString",
+      "options": ["-s", "-D"]
+    },
+    {
+      "id": "push_python_docker_backend_prod_img0",
+      "description": "provide img tag(version) for your docker img to be pushed",
+      "type": "promptString"
+    },
+    {
+      "id": "Build_python_docker_backend_prod_img0",
+      "description": "provide img tag(version) for your docker img",
+      "type": "promptString"
+    },
+    {
+      "id": "pgDatabaseport",
+      "description": "the port for the postgres database",
+      "default": "5432",
+      "type": "pickString",
+      "options": ["5432","5433"]
+    },
+  ]
+}

@@ -1,0 +1,100 @@
+//This file will have the base styles written globally for the different HTML elements. E.g. headings, p, button, a.
+
+*{
+    box-sizing: border-box;
+    &:active,
+    :focus{
+        outline-offset: 3px;
+    }
+    &::-webkit-scrollbar{
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: map-get($modhyobitto-colors, primary);
+    }
+}
+
+:after, :before{
+    box-sizing: border-box;
+}
+
+html,body{
+    font-family: 'RobotoLight', sans-serif;
+    font-size: 16px;
+    color: map-get($modhyobitto-colors, default-text);
+}
+
+//headings
+h1, .h1{
+    font-size: 4.25rem;
+    line-height: 110%;
+}
+h2, .h2{
+    font-size: 2.625rem;
+    line-height: 110%;
+}
+h3, .h3{
+    font-size: 1.625rem;
+    line-height: 125%;
+}
+h4, .h4{
+    font-size: 1.4rem;
+    font-weight: lighter;
+}
+h5, .h5{
+    font-size: 1rem;
+    line-height: 18px;
+}
+h6, .h6{
+    font-size: 1rem;
+    line-height: 125%;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    color: map-get($modhyobitto-colors, primary);
+    text-decoration: none;
+    &:hover {
+        color: map-get($modhyobitto-colors, primary-dark);
+        text-decoration: underline;
+    }
+}
+
+button {
+    background: map-get($modhyobitto-colors, primary);
+    border: none;
+    box-shadow: none;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    padding: 0 20px;
+    text-transform: uppercase;
+    &.primary-button, &.secondary-button{
+        min-width: 150px;
+    }
+    &.secondary-button{
+        background: map-get($modhyobitto-colors, primary-dark);
+    }
+    &:hover, &:focus{
+        outline: none;
+    }
+    &:not(.mat-focus-indicator){
+        height: 50px;
+        &:hover, &:focus{
+            background: map-get($modhyobitto-colors, primary-light);
+            color: map-get($modhyobitto-colors, default-text);
+            outline: none;
+        }
+        &:disabled{
+            background: map-get($modhyobitto-colors, disabled-bg);
+            color: map-get($modhyobitto-colors, disabled-text);
+        }
+    }
+    .button-icon{
+        font-size: 2rem;
+        margin-left: 10px;
+    }
+
+}

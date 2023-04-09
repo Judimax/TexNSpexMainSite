@@ -1,0 +1,26 @@
+
+@import "src/assets/styles/_color_pallete.scss";
+@import "src/assets/styles/_common.scss";
+
+* {
+
+	/* custom scrollbar */
+	::-webkit-scrollbar {
+		width: calc(20/16 * 1rem);
+	}
+
+	::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: var(--wml-black);
+		border-radius: calc(20/16 * 1rem);
+		border: 6px solid transparent;
+		background-clip: content-box;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background-color: var(--wml-black);
+	}
+}
