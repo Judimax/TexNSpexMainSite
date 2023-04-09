@@ -157,19 +157,37 @@ let appTransitionTime = rootStyle().getPropertyValue(
 export let CSSVARS = {
 
   darkGreyColor: rootStyle().getPropertyValue('--dark-grey'),
-  displayFont: rootStyle().getPropertyValue('--display'),
   displayXXLarge: rootStyle().getPropertyValue('--display-xx-large'),
+  displayXLarge: rootStyle().getPropertyValue('--display-x-large'),
+  displayLarge: rootStyle().getPropertyValue('--display-large'),
+  display: rootStyle().getPropertyValue('--display'),
+  displaySmall: rootStyle().getPropertyValue('--display-small'),
+  displayXSmall: rootStyle().getPropertyValue('--display-x-small'),
+  displayXXSmall: rootStyle().getPropertyValue('--display-xx-small'),
+  body: rootStyle().getPropertyValue('--body'),
+  bodyBold: rootStyle().getPropertyValue('--body-bold'),
+  bodySmall: rootStyle().getPropertyValue('--body-small'),
+  bodySmallBold: rootStyle().getPropertyValue('--body-small-bold'),
+  button: rootStyle().getPropertyValue('--button'),
+  text: rootStyle().getPropertyValue('--text'),
+  overline: rootStyle().getPropertyValue('--overline'),
+  overlineBold: rootStyle().getPropertyValue('--overline-bold'),
+  overlineSmall: rootStyle().getPropertyValue('--overline-small'),
+  caption: rootStyle().getPropertyValue('--caption'),
+  legal: rootStyle().getPropertyValue('--legal'),
   borderRadius0: rootStyle().getPropertyValue('--border-radius1'),
   wmlwhite: rootStyle().getPropertyValue('--wml-white') ,
   wmlblack: rootStyle().getPropertyValue('--wml-black') ,
   wmlprimary: rootStyle().getPropertyValue('--wml-primary') ,
   wmlsecondary: rootStyle().getPropertyValue('--wml-secondary') ,
-  wmlprimaryfilter: rootStyle().getPropertyValue('--wml-primary') ,
-  wmlsecondaryfilter: rootStyle().getPropertyValue('--wml-secondary') ,
+  wmlprimaryfilter: rootStyle().getPropertyValue('--wml-primary-filter') ,
+  wmlsecondaryfilter: rootStyle().getPropertyValue('--wml-secondary-filter') ,
   wmltertiary: rootStyle().getPropertyValue('--wml-tertiary') ,
   wmlgrey: rootStyle().getPropertyValue('--wml-grey') ,
   wmlstarselected: rootStyle().getPropertyValue('--wml-star-selected'),
   wmldarkgrey:  rootStyle().getPropertyValue('--wml-dark-grey'),
+  wmldefaultlayoutbackground: rootStyle().getPropertyValue('--wml-default-layout-background'),
+  wmldarkdefaultlayoutbackground: rootStyle().getPropertyValue('--wml-dark-default-layout-background'),
   wmlorginalwhite: rootStyle().getPropertyValue('--wml-original-white') ,
   wmlorginalblack: rootStyle().getPropertyValue('--wml-original-black') ,
   wmlorginalprimary: rootStyle().getPropertyValue('--wml-original-primary') ,
@@ -180,6 +198,8 @@ export let CSSVARS = {
   wmlorginaldarkgrey:  rootStyle().getPropertyValue('--wml-original-dark-grey'),
   wmloriginalprimaryfilter: rootStyle().getPropertyValue('--wml-original-primary-filter') ,
   wmloriginalsecondaryfilter: rootStyle().getPropertyValue('--wml-original-secondary-filter') ,
+  wmloriginaldefaultlayoutbackground: rootStyle().getPropertyValue('--wml-original-default-layout-background'),
+  wmloriginaldarkdefaultlayoutbackground: rootStyle().getPropertyValue('--wml-original-dark-default-layout-background'),
   wmlAlert:  rootStyle().getPropertyValue('--wml-original-alert'),
   appTransitionTime,
   javascriptAppTransitionTime:
@@ -277,6 +297,21 @@ export let toggleDarkMode = (init=false) => {
     ? CSSVARS.wmloriginalsecondaryfilter
     : CSSVARS.wmloriginalprimaryfilter
   );
+
+  root.style.setProperty(
+    '--wml-default-layout-background',
+    !webStorage.darkMode
+      ? CSSVARS.wmloriginaldefaultlayoutbackground
+      : CSSVARS.wmloriginaldarkdefaultlayoutbackground
+  );
+
+  root.style.setProperty(
+    '--wml-dark-default-layout-background',
+    !webStorage.darkMode
+      ? CSSVARS.wmloriginaldarkdefaultlayoutbackground
+      : CSSVARS.wmloriginaldefaultlayoutbackground
+  );
+
   return webStorage.darkMode
 };
 

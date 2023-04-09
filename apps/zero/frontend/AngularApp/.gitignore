@@ -9,7 +9,6 @@ package-lock
 yarn.lock
 yarn-error.log
 
-
 # CircleCI temporary file for cache key computation.
 # See `save_month_to_file` in `.circleci/config.yml`.
 month.txt
@@ -61,3 +60,6 @@ baseline.json
 # Husky
 .husky/_
 aio/content/examples/.DS_Store
+
+#compodoc
+documentation

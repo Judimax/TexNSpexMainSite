@@ -1,2 +1,2 @@
 export let ENV
-export let environment 
+export let environment

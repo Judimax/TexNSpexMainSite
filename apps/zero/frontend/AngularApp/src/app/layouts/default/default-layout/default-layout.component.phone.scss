@@ -1,0 +1,27 @@
+#root default-layout{
+  @media #{$mobile}{
+    .NavMainMainPod{
+      padding:0 $spacing7;
+    }
+
+    nav-main mat-slide-toggle label{
+      display: none;
+    }
+    .NavMainPod0{
+      flex:1 0 auto;
+      justify-content: space-between;
+    }
+    .NavMainPod1{
+      // flex:0 1 10%;
+      // justify-content: flex-end;
+      // display: flex;
+    }
+
+    .NavMainPod0Item0 {
+      margin:0;
+      order:1;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

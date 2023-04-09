@@ -1,0 +1,84 @@
+
+@import "src/assets/styles/global.scss";
+@import "src/assets/styles/_fonts.scss";
+@import "src/assets/styles/_spacing.scss";
+@import "src/assets/styles/media-queries.scss";
+@import "src/assets/styles/_color_pallete.scss";
+@import "src/assets/styles/_common.scss";
+@import "src/assets/styles/_layouts.scss";
+
+
+:host {
+
+
+  &.StepperView{
+    display: block;
+    .Stepper{
+      &Main{
+        &Pod{
+          @include MainPodCssRule0;
+
+        }
+
+        &Item {
+          &0 {
+            display:flex;
+            align-items: center;
+            margin:0 0 $spacing9 0;
+
+            &:last-child{
+              margin:0;
+            }
+
+          }
+          &1{
+            position:relative;
+            height: 100%;
+          }
+        }
+
+        &Bullet {
+          &0 {
+            border-radius: 100%;
+            width: calc(40/16 * 1rem);
+            border:calc(3/16 * 1rem) solid var(--wml-secondary);
+            background-color: var(--wml-primary);
+
+            padding:$spacing2;
+            @include WMLFlexColumnCenter;
+            position: relative;
+            margin:0 $spacing5 0 0;
+
+          }
+        }
+
+        &Line {
+          &0 {
+            position: absolute;
+            border:calc(3/16 * 1rem) solid var(--wml-secondary);
+            inset:50%  0 0 $spacing5;
+            height: calc(100% + $spacing10);
+            width: 0;
+            z-index:4;
+
+
+
+          }
+        }
+
+        &Text {
+          &0 {
+            color: var(--wml-white);
+          }
+        }
+
+
+      }
+      &Pod{
+
+        &0{}
+      }
+    }
+  }
+
+}

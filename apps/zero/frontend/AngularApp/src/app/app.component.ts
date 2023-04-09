@@ -3,7 +3,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, HostBinding, ViewContainer
 import { Router } from '@angular/router';
 
 // rxjs
-import { catchError, forkJoin, merge, of, pipe, Subject, takeUntil, tap, timer } from 'rxjs';
+import { forkJoin, merge, pipe, Subject, takeUntil, tap } from 'rxjs';
 
 // services
 import { BaseService, GenerateMobileNavBtnItemParams } from '@core/base/base.service';
@@ -19,7 +19,7 @@ import { HttpClient } from '@angular/common/http';
 import { WmlNotifyBarType, WmlNotifyService } from '@windmillcode/wml-notify';
 import { AutomateService } from '@helpers/automation/automation/automation.service';
 import { toggleDarkMode } from '@core/utility/common-utils';
-
+import { SITE_OFFLINE_ENUM } from '@core/site-offline/site-offline.component';
 
 
 @Component({
@@ -58,7 +58,8 @@ export class AppComponent implements AfterViewInit {
       this.webStorage.siteUnderConstructionBannerWasOpened = true
       sessionStorage.setItem(ENV.classPrefix.app, JSON.stringify(this.webStorage))
 
-      this.baseService.generateWMLNote("global.siteUnderConstruction",WmlNotifyBarType.Info,true)
+      let note =this.baseService.generateWMLNote("app.siteUnderConstruction",WmlNotifyBarType.Info,true)
+      this.wmlNotifyService.create(note)
       this.cdref.detectChanges()
 
     }
@@ -88,7 +89,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit (){
-    this.openSiteUnderConstructionBanner()
     this.cdref.detectChanges()
   }
 
@@ -97,26 +97,23 @@ export class AppComponent implements AfterViewInit {
       this.vcf.element.nativeElement.removeAttribute("ng-version");
     }
 
+
+    if(ENV.app.siteOffline === SITE_OFFLINE_ENUM.TRUE){
+      this.router.navigateByUrl(ENV.nav.urls.siteOffline)
+      return
+    }
+    else if(window.location.pathname === ENV.nav.urls.siteOffline){
+      this.router.navigateByUrl(ENV.nav.urls.home)
+    }
+
     this.baseService.appCdRef = this.cdref
     ENV.nav.urls.initialURL = window.location.pathname
     this.http.get(ENV.app.backendHealthCheck())
     .pipe(
-      takeUntil(this.ngUnsub),
-      catchError(()=>{
-        this.baseService.generateWMLNote("app.startBackend",WmlNotifyBarType.Info,true)
-        return timer(5000)
-        .pipe(
-          takeUntil(this.ngUnsub),
-          tap(()=>{
-            this.baseService.generateWMLNote("global.siteUnderConstruction",WmlNotifyBarType.Info)
-            this.cdref.detectChanges()
-          })
-        )
-
-      }),
+      takeUntil(this.ngUnsub)
 
     )
-    .subscribe()
+    // .subscribe()
   }
 
   ngOnDestroy() {

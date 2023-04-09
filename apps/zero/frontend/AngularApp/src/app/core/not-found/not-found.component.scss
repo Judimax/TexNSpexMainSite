@@ -23,7 +23,15 @@
       &Pod{
 
         &0{}
-        &1{}
+        &1{
+          &Img {
+            &0 {
+              position: relative !important;
+              width:calc(200/16 * 1rem) !important;
+              height: auto !important;
+            }
+          }
+        }
       }
     }
   }

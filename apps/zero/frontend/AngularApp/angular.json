@@ -33,11 +33,11 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "src/styles.scss",
-              "./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
-              "./node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
-              "./node_modules/@fortawesome/fontawesome-free/scss/solid.scss"
+              // "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "src/styles.scss"
+              // "./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              // "./node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
+              // "./node_modules/@fortawesome/fontawesome-free/scss/solid.scss"
             ],
             "scripts": [
 
@@ -45,11 +45,12 @@
           },
           "configurations": {
             "production": {
+
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -65,13 +66,12 @@
               ],
               "outputHashing": "all"
             },
-            "firebaseprod": {
-              "outputPath": "./dist/firebase",
+            "preview": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -82,130 +82,12 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.preview.ts"
                 }
               ],
               "outputHashing": "all"
             },
-            "azureSWAProd": {
-              "outputPath": "./dist/azureSWA",
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "6mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "40kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "psuedoprod": {
-              "outputPath": "./dist/psuedo",
-              "sourceMap": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "codesandboxprod": {
-              "outputPath":"./dist/codesandbox",
-              "fileReplacements": [
-                  {
-                      "replace": "src/app/website.ts",
-                      "with": "src/app/cms/website-uploader-dev.ts"
-                  },
-                  {
-                      "replace": "src/environments/environment.ts",
-                      "with": "src/environments/environment.uploader.prod.ts"
-                  }
-              ],
-              "assets": [
-                  "src/assets"
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
 
-              "budgets": [
-                  {
-                      "type": "initial",
-                      "maximumWarning": "2mb",
-                      "maximumError": "5mb"
-                  },
-                  {
-                      "type": "anyComponentStyle",
-                      "maximumWarning": "6kb",
-                      "maximumError": "10kb"
-                  }
-              ]
-          },
-          "github": {
-              "outputPath":"../docs",
-              "baseHref":"/Uploader_Project/",
-              "deployUrl":"/Uploader_Project/",
-              "fileReplacements": [
-                  {
-                      "replace": "src/app/website.ts",
-                      "with": "src/app/cms/website-uploader-dev.ts"
-                  },
-                  {
-                      "replace": "src/environments/environment.ts",
-                      "with": "src/environments/environment.uploader.prod.ts"
-                  }
-              ],
-              "assets": [
-                  "src/assets"
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-
-              "budgets": [
-                  {
-                      "type": "initial",
-                      "maximumWarning": "2mb",
-                      "maximumError": "5mb"
-                  },
-                  {
-                      "type": "anyComponentStyle",
-                      "maximumWarning": "6kb",
-                      "maximumError": "10kb"
-                  }
-              ]
-          },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -274,337 +156,9 @@
           }
         }
       }
-    },
-    "windmillcodeIsPresent": {
-      "projectType": "library",
-      "root": "projects/windmillcode-is-present",
-      "sourceRoot": "projects/windmillcode-is-present/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/windmillcode-is-present/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/windmillcode-is-present/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/windmillcode-is-present/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        }
-
-      }
-    },
-    "mobileNav": {
-      "projectType": "library",
-      "root": "projects/mobile-nav",
-      "sourceRoot": "projects/mobile-nav/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/mobile-nav/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/mobile-nav/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/mobile-nav/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        }
-      }
-    },
-    "wml-popup": {
-      "projectType": "library",
-      "root": "projects/wml-popup",
-      "sourceRoot": "projects/wml-popup/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/wml-popup/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wml-popup/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/wml-popup/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/wml-popup/src/test.ts",
-            "tsConfig": "projects/wml-popup/tsconfig.spec.json",
-            "karmaConfig": "projects/wml-popup/karma.conf.js"
-          }
-        }
-      }
-    },
-    "wml-input": {
-      "projectType": "library",
-      "root": "projects/wml-input",
-      "sourceRoot": "projects/wml-input/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/wml-input/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wml-input/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/wml-input/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/wml-input/src/test.ts",
-            "tsConfig": "projects/wml-input/tsconfig.spec.json",
-            "karmaConfig": "projects/wml-input/karma.conf.js"
-          }
-        }
-      }
-    },
-    "wml-form": {
-      "projectType": "library",
-      "root": "projects/wml-form",
-      "sourceRoot": "projects/wml-form/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/wml-form/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wml-form/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/wml-form/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/wml-form/src/test.ts",
-            "tsConfig": "projects/wml-form/tsconfig.spec.json",
-            "karmaConfig": "projects/wml-form/karma.conf.js"
-          }
-        }
-      }
-    },
-    "wml-field": {
-      "projectType": "library",
-      "root": "projects/wml-field",
-      "sourceRoot": "projects/wml-field/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/wml-field/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wml-field/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/wml-field/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/wml-field/src/test.ts",
-            "tsConfig": "projects/wml-field/tsconfig.spec.json",
-            "karmaConfig": "projects/wml-field/karma.conf.js"
-          }
-        }
-      }
-    },
-    "wml-tabs": {
-      "projectType": "library",
-      "root": "projects/wml-tabs",
-      "sourceRoot": "projects/wml-tabs/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/wml-tabs/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wml-tabs/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/wml-tabs/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/wml-tabs/src/test.ts",
-            "tsConfig": "projects/wml-tabs/tsconfig.spec.json",
-            "karmaConfig": "projects/wml-tabs/karma.conf.js"
-          }
-        }
-      }
-    },
-    "wml-dropdown": {
-      "projectType": "library",
-      "root": "projects/wml-dropdown",
-      "sourceRoot": "projects/wml-dropdown/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/wml-dropdown/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wml-dropdown/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/wml-dropdown/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/wml-dropdown/src/test.ts",
-            "tsConfig": "projects/wml-dropdown/tsconfig.spec.json",
-            "karmaConfig": "projects/wml-dropdown/karma.conf.js"
-          }
-        }
-      }
-    },
-    "wml-options": {
-      "projectType": "library",
-      "root": "projects/wml-options",
-      "sourceRoot": "projects/wml-options/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/wml-options/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wml-options/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/wml-options/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/wml-options/src/test.ts",
-            "tsConfig": "projects/wml-options/tsconfig.spec.json",
-            "karmaConfig": "projects/wml-options/karma.conf.js"
-          }
-        }
-      }
-    },
-    "wml-file-manager": {
-      "projectType": "library",
-      "root": "projects/wml-file-manager",
-      "sourceRoot": "projects/wml-file-manager/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/wml-file-manager/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wml-file-manager/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/wml-file-manager/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/wml-file-manager/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "wml-chips": {
-      "projectType": "library",
-      "root": "projects/wml-chips",
-      "sourceRoot": "projects/wml-chips/src",
-      "prefix": "wml",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/wml-chips/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wml-chips/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/wml-chips/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/wml-chips/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
     }
+
+
   },
   "cli": {
     "analytics": "07c16a27-f0b9-4b31-a194-46a57f7cf26f",

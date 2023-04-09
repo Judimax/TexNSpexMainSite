@@ -19,6 +19,12 @@
 
 }
 
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins/Poppins-SemiBold.ttf')
+  url('../fonts/Poppins/Poppins-Thin.ttf')
+}
+
 
 
 
@@ -28,7 +34,7 @@ $display-large:calc(56/16 * 1rem);
 $display:calc(40/16 * 1rem);
 $display-small:calc(32/16 * 1rem);
 $display-x-small:calc(28/16 * 1rem);
-$display-x-small-light:calc(28/16 * 1rem);
+$display-xx-small:calc(24/16 * 1rem);
 
 
 $body:calc(20/16 * 1rem);
@@ -62,7 +68,7 @@ $wml-p: calc(20/16 * 1rem);
   --display: #{$display};
   --display-small: #{$display-small};
   --display-x-small: #{$display-x-small};
-  --display-x-small-light: #{$display-x-small-light};
+  --display-xx-small: #{$display-xx-small};
 
   --body: #{$body};
   --body-bold: #{$body-bold};

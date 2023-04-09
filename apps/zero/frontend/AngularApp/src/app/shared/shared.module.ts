@@ -18,22 +18,26 @@ import { OverlayLoadingComponent } from './components/overlay-loading/overlay-lo
 
 // material
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { MatCardModule } from '@angular/material/card';
+import {MatCardModule } from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
 
 // misc
-
-import { ScrollBottomPaginationDirective } from './directives/scroll-bottom-pagination-directive/scroll-bottom-pagination.directive';
-import { CustomLabelComponent } from './components/custom-label/custom-label.component';
 import { NotifyBannerComponent } from './components/notify-banner/notify-banner.component';
+import { SampleCpntComponent } from './components/sample-cpnt/sample-cpnt.component';
+import { CustomLabelComponent } from './components/custom-label/custom-label.component';
+import { ScrollBottomPaginationDirective } from './directives/scroll-bottom-pagination-directive/scroll-bottom-pagination.directive';
+
+import { StepperComponent } from './components/stepper/stepper.component';
 
 
 
 let components = [
-  OverlayLoadingComponent,
-  ScrollBottomPaginationDirective,
+  SampleCpntComponent,
   CustomLabelComponent,
-  NotifyBannerComponent
+  OverlayLoadingComponent,
+  StepperComponent,
+
+  // ScrollBottomPaginationDirective,
 
 ]
 
@@ -64,6 +68,7 @@ let modules = [
   ],
   declarations: [
     ...components,
+    NotifyBannerComponent,
 
   ]
 })

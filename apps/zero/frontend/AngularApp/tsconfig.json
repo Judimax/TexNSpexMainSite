@@ -46,15 +46,6 @@
       ],
       "@app/*": [
         "src/app/*"
-      ],
-      "mobileNav": [
-        "dist/mobile-nav"
-      ],
-      "windmillcodeIsPresent": [
-        "dist/windmillcode-is-present"
-      ],
-      "@angular-calendar": [
-        "projects/angular-calendar/src/index.ts"
       ]
     },
     "types": [

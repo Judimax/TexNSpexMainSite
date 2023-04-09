@@ -10,7 +10,7 @@ import { ENV, environment } from './environments/environment';
 
 Sentry.init({
   environment:ENV.type,
-  dsn: "[YOUR DSN URL HERE]",
+  dsn: "https://7207fc735fe940ae94e84956a91ac2f9@o487417.ingest.sentry.io/4504860386394112",
   integrations: [
     new BrowserTracing({
       tracePropagationTargets: ["localhost", "https://yourserver.io/api"],

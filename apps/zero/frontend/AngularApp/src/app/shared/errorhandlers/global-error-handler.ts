@@ -18,11 +18,14 @@ export class GlobalErrorHandler extends SentryErrorHandler {
 
   }
   private baseService
-  override handleError(error) {
+  override handleError(error:Error) {
     this.baseService.generateWMLNote('global.systemError',WmlNotifyBarType.Error);
 
-    if(ENV.type==="dev"){
+    if(ENV.type!=="dev"){
       super.handleError(error);
+    }
+    else{
+      console.error(error.message)
     }
     this.handleError = ()=>{}
   }

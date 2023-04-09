@@ -1,0 +1,57 @@
+
+@import "src/assets/styles/_common.scss";
+@import "src/assets/styles/_layouts.scss";
+@import "src/assets/styles/_fonts.scss";
+
+
+:host {
+
+
+  &.DefaultLayoutView{
+    display: block;
+    width:99.9vw;
+    height:99.9vh;
+    margin:auto;
+
+    .DefaultLayout{
+      &Main{
+        &Pod{
+
+          width: 100%;
+          height: 100%;
+          max-width:$wmlPageMaxWidth0;
+          margin:auto;
+          @include WMLFlexColumnCenter;
+          @include MainPodCssRule0;
+          padding:0;
+        }
+      }
+      &Pod{
+
+        &0{
+          position: sticky;
+          flex:0 0 calc(48/16 * 1rem);
+        }
+
+        &1{
+          flex:1 0 83%;
+          overflow: hidden auto;
+          background-color: var(--wml-default-layout-background);
+        }
+
+        &2{
+          flex:0 0 7%;
+          background-color: var(--wml-dark-grey);
+          @include WMLFlexColumnCenter;
+          justify-content: center;
+
+          p{
+            font-size:$caption;
+            color:var(--wml-white);
+          }
+        }
+      }
+    }
+  }
+
+}

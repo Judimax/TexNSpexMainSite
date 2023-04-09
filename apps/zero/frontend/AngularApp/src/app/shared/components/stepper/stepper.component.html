@@ -1,0 +1,13 @@
+<div [class]="classPrefix('MainPod')">
+  <div [class]="classPrefix('MainItem0')" *ngFor="let line of params.multiline;let i = index;">
+    <div [class]="classPrefix('MainItem1')">
+
+      <div [class]="classPrefix('MainBullet0')">
+        <p [class]="classPrefix('MainText0')">{{i+1}} </p>
+      </div>
+      <div *ngIf=" i+1 !== (params.multiline.length)" [class]="classPrefix('MainLine0')"></div>
+    </div>
+
+    <p [class]="classPrefix('MainText0')">{{line.text | translate}}</p>
+  </div>
+</div>

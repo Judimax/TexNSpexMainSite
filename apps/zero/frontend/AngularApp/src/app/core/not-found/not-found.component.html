@@ -2,9 +2,11 @@
   <section [class]="classPrefix('Pod0')">
     <p>{{"notFound.lines.0" | translate}}</p>
     <h2>{{"notFound.lines.1" | translate}}</h2>
-    <p>{{"notFound.lines.2" | translate}}</p>
+    <p>{{"notFound.lines.2" | translate}}
+      <a [routerLink]="ENV.nav.urls.home" >{{"notFound.lines.3" | translate}}</a>
+    </p>
   </section>
   <section [class]="classPrefix('Pod1')">
-    <img  [class]="classPrefix('Pod1Img0')" [src]="someImg.src" [alt]="someImg.alt | translate" >
+    <img  [class]="classPrefix('Pod1Img0')" [ngSrc]="someImg.src" fill [alt]="someImg.alt | translate" >
   </section>
 </div>

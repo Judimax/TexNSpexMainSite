@@ -20,6 +20,7 @@ import { ENV } from '@env/environment';
 import { SharedModule } from '@shared/shared.module';
 
 import { WMLUIProperty } from '@windmillcode/wml-components-base';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   standalone:true,
@@ -35,7 +36,7 @@ export class ScratchpadComponent  {
 
   constructor(
     public cdref:ChangeDetectorRef,
-
+    public http:HttpClient,
     public utilService:UtilityService,
     public configService:ConfigService,
     public baseService:BaseService
@@ -43,6 +44,7 @@ export class ScratchpadComponent  {
   ) { }
 
   classPrefix = this.utilService.generateClassPrefix('Scratchpad')
+
 
 
 

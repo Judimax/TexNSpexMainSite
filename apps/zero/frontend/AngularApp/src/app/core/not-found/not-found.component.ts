@@ -16,13 +16,16 @@ import { Subject } from 'rxjs';
 
 import { SharedModule } from '@shared/shared.module';
 import { WMLImage } from '@windmillcode/wml-components-base';
+import { ENV } from '@env/environment';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
 
     standalone:true,
     imports:[
-      SharedModule
+      SharedModule,
+      RouterModule
     ],
 
   selector: 'not-found',
@@ -48,12 +51,13 @@ export class NotFoundComponent  {
 
   @HostBinding('class') myClass: string = this.classPrefix(`View`);
   ngUnsub= new Subject<void>()
+  ENV =ENV
 
   ngOnInit(): void {
   }
 
   someImg= new WMLImage({
-    src:"assets/media/shared/tech-ball.png",
+    src:"assets/media/notFound/resume.jpg ",
     alt:"notFound.someImgAlt"
   })
 

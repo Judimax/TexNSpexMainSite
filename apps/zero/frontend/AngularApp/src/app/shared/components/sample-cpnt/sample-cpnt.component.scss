@@ -1,0 +1,46 @@
+@import "src/assets/styles/global";
+
+
+
+:host {
+  &View {
+  }
+  .Main {
+    &Pod{
+      display: flex;
+      flex-direction: column;
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-size: 1rem;
+      font-weight: normal;
+      pointer-events: auto;
+      box-sizing: border-box;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 0.5rem;
+      border-radius: 0.5rem;
+      margin: 0 auto;     
+    }
+  }
+  .Pod{
+    &0{
+      display: flex;
+      margin: var(--spacing2) 0 0 0 ;
+      &Item{
+        @for $i from 0 through 3 {
+          &#{$i} { 
+            height: var(--spacing10);
+            width: var(--spacing10);
+            margin: 0 var(--spacing3);
+            background-color: provideRandomColor();
+          }
+        }
+      }
+    }
+
+  }
+}

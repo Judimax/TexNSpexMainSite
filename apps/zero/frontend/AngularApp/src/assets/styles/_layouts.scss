@@ -22,7 +22,7 @@ $wmlPageMaxWidth1:calc(1000/16 * 1rem);
 
 @mixin MainPodCssRule0 {
   @include pageLayout0;
-  padding:1.5rem;
+  padding:1.5rem 0;
    & > *{
     width: 100%;
     max-width: $wmlPageMaxWidth0;

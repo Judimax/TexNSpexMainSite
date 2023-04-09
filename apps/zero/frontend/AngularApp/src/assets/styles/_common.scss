@@ -4,11 +4,13 @@
 @import "./layouts";
 
 $wml-border-radius0:calc(8/16 * 1rem);
-$wml-border-radius1:calc(20/16 * 1rem);
+$wml-border-radius1:calc(10/16 * 1rem);
+$wml-border-radius2:calc(20/16 * 1rem);
 $wml-app-transition-time0:1s;
 :root{
   --wml-border-radius0:#{$wml-border-radius0};
   --wml-border-radius1:#{$wml-border-radius1};
+  --wml-border-radius2:#{$wml-border-radius2};
   --wml-app-transition-time0:#{$wml-app-transition-time0};
 }
 
@@ -30,11 +32,11 @@ $wml-app-transition-time0:1s;
 
 
 @mixin borderRadius0{
-  border-radius: calc(8/16 * 1rem);
+  border-radius: $wml-border-radius0;
 }
 
-@mixin borderRadius1{
-  border-radius: calc(20/16 * 1rem);
+@mixin borderRadius2{
+  border-radius: $wml-border-radius2;
 }
 
 @mixin appOutline0{

@@ -1,9 +1,12 @@
 import { HttpParams } from '@angular/common/http';
+import { SITE_OFFLINE_ENUM } from '@core/site-offline/site-offline.component';
 import { WMLEndpoint } from '@windmillcode/wml-components-base';
 
 export let environment = {
   production: false
 }
+
+
 export let traverseClassAndRemoveAutomationForProduction = (obj,stack=[])=>{
   Object.entries(obj).forEach(entry=>{
     let [key,value] = entry
@@ -31,8 +34,9 @@ export class DevEnv {
   errorCodes = {
   }
 
-  app={
-    backendHealthCheck:() =>this.backendDomain0 + "/healthz/"
+  app:any={
+    backendHealthCheck:() =>this.backendDomain0 + "/healthz/",
+    siteOffline:SITE_OFFLINE_ENUM.FALSE
   }
 
 
@@ -49,22 +53,25 @@ export class DevEnv {
       homeAlt:"/home",
       sample:"/sample",
       profile:"/profile",
-      profileTypeQuestionaire:"/profile-type-questionaire",
+      profileTypeQuestionaire:"/product-survey",
       initialURL:"",
+      siteOffline:"/site-offline"
     },
     spotifyLoginEndpoint:() => this.backendDomain0 + "/spotify/login"
   }
 
-  profileOneMain = {
+  candidacyInfoForm = {
     mainForm:{
+      companyFormControlName:"company",
       jobDescFormControlName:"jobDesc",
       resumeFormControlName:"resume"
     }
   }
 
+
+
   questionaireOneMain = {
     mainForm:{
-      waitListIdFormControlName:"waitListId",
       cognitoUserIdFormControlName:"cognitoUserId"
     }
   }

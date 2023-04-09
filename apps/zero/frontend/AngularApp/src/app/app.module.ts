@@ -74,6 +74,7 @@ function waitFori18nextToLoad(translateService: TranslateService): () => Observa
   declarations: [
     AppComponent,
 
+
   ],
   imports: [
     BrowserModule,

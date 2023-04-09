@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { WMLValidatorFileExtensions } from '@core/utility/validators';
 import { ENV } from '@env/environment';
 @Injectable({
   providedIn: 'root'
@@ -10,21 +11,19 @@ export class FormsService {
 
   ) { }
 
+  candidacyInfoForm = {
+    mainForm:new FormGroup({
+      [ENV.candidacyInfoForm.mainForm.companyFormControlName]:new FormControl(""),
+      [ENV.candidacyInfoForm.mainForm.jobDescFormControlName]:new FormControl("",Validators.required),
+      [ENV.candidacyInfoForm.mainForm.resumeFormControlName]:new FormArray([],WMLValidatorFileExtensions({ext:["docx","pdf"]})),
+    })
+  }
+
   questionaireOneMain = {
     mainForm: new FormGroup({
-      [ENV.questionaireOneMain.mainForm.waitListIdFormControlName]:new FormControl(""),
       [ENV.questionaireOneMain.mainForm.cognitoUserIdFormControlName]:new FormControl("")
     })
   }
-
-  profileOneMain={
-    mainForm:new FormGroup({
-      [ENV.profileOneMain.mainForm.jobDescFormControlName]:new FormControl("",[Validators.required]),
-      [ENV.profileOneMain.mainForm.resumeFormControlName]:new FormArray([]),
-    })
-  }
-
-
 
   joinWaitlistForm = {
     mainForm:new FormGroup({
